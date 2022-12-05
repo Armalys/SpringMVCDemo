@@ -15,7 +15,7 @@ public class PositionController {
 
     @GetMapping("/aircraft")
     public String getCurrentAircraftPositions(Model model) {
-        repository.deleteAll();
+//        repository.deleteAll();
 
         model.addAttribute("currentPositions", repository.findAll());
         return "positions";
