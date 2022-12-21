@@ -1,24 +1,20 @@
 package ge.me.springmvcdemo.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import java.time.Instant;
 
-@Entity
+@Document
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class Aircraft {
     @Id
-    @GeneratedValue
     private Long id;
     private String callsign, squawk, reg, flightno, route, type, category;
 
@@ -45,30 +41,5 @@ public class Aircraft {
     private Instant posUpdateTime;
     @JsonProperty("bds40_seen_time")
     private Instant bds40SeenTime;
-
-    public Aircraft(
-            String callsign, String reg, String flightno, String type,
-            int altitude, int heading, int speed,
-            double lat, double lon
-    ) {
-        this(null, callsign, "sqwk", reg, flightno, "route", type, "ct",
-             altitude, heading, speed, 0, 0,
-             lat, lon, 0D, 0D, 0D,
-             false, true,
-             Instant.now(), Instant.now(), Instant.now()
-        );
-    }
-
-    public void setLastSeenTime(String  lastSeenTime) {
-        this.lastSeenTime = Instant.parse(lastSeenTime);
-    }
-
-    public void setPosUpdateTime(String posUpdateTime) {
-        this.posUpdateTime = Instant.parse(posUpdateTime);
-    }
-
-    public void setBds40SeenTime(String bds40SeenTime) {
-        this.bds40SeenTime = Instant.parse(bds40SeenTime);
-    }
 }
 
