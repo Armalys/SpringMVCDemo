@@ -23,6 +23,7 @@ public class PositionController {
         this.requester = builder.tcp("localhost", 7635);
     }
 
+    // HTTP endpoint, HTTP requester (previously created)
     @GetMapping("/aircraft")
     public String getCurrentAircraftPositions(Model model) {
         Flux<Aircraft> aircraftFlux = repository.deleteAll()
@@ -36,6 +37,8 @@ public class PositionController {
         return "positions";
     }
 
+
+    // HTTP endpoint, RSocket client endpoint
     @ResponseBody
     @GetMapping(value = "/acstream",
             produces = MediaType.TEXT_EVENT_STREAM_VALUE)
